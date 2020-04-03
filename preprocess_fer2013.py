@@ -50,14 +50,30 @@ with open(file,'r') as csvin:
 print(np.shape(Training_x))
 print(np.shape(PublicTest_x))
 print(np.shape(PrivateTest_x))
+#%%
+Training_x = np.asarray(Training_x)
+Training_y = np.asarray(Training_y)
+PublicTest_x = np.asarray(PublicTest_x)
+PublicTest_y = np.asarray(PublicTest_y)
+PrivateTest_x = np.asarray(PrivateTest_x)
+PrivateTest_y = np.asarray(PrivateTest_y)
 
-datafile = h5py.File(datapath, 'w')
-datafile.create_dataset("Training_pixel", dtype = 'uint8', data=Training_x)
-datafile.create_dataset("Training_label", dtype = 'int64', data=Training_y)
-datafile.create_dataset("PublicTest_pixel", dtype = 'uint8', data=PublicTest_x)
-datafile.create_dataset("PublicTest_label", dtype = 'int64', data=PublicTest_y)
-datafile.create_dataset("PrivateTest_pixel", dtype = 'uint8', data=PrivateTest_x)
-datafile.create_dataset("PrivateTest_label", dtype = 'int64', data=PrivateTest_y)
-datafile.close()
+np.save('data/Training_x',Training_x.astype('uint8'))
+np.save('data/Training_y',Training_y.astype('uint8'))
+np.save('data/PublicTest_x',PublicTest_x.astype('uint8'))
+np.save('data/PublicTest_y',PublicTest_y.astype('uint8'))
+np.save('data/PrivateTest_x',PrivateTest_x.astype('uint8'))
+np.save('data/PrivateTest_y',PrivateTest_y.astype('uint8'))
+
+# =============================================================================
+# datafile = h5py.File(datapath, 'w')
+# datafile.create_dataset("Training_pixel", dtype = 'uint8', data=Training_x)
+# datafile.create_dataset("Training_label", dtype = 'int64', data=Training_y)
+# datafile.create_dataset("PublicTest_pixel", dtype = 'uint8', data=PublicTest_x)
+# datafile.create_dataset("PublicTest_label", dtype = 'int64', data=PublicTest_y)
+# datafile.create_dataset("PrivateTest_pixel", dtype = 'uint8', data=PrivateTest_x)
+# datafile.create_dataset("PrivateTest_label", dtype = 'int64', data=PrivateTest_y)
+# datafile.close()
+# =============================================================================
 
 print("Save data finish!!!")
