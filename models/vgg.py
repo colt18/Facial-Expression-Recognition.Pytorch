@@ -17,19 +17,14 @@ class VGG(nn.Module):
     def __init__(self, vgg_name):
         super(VGG, self).__init__()
         self.features = self._make_layers(cfg[vgg_name])
-        self.fc1 = nn.Linear(512, 4096)
-        self.fc2 = nn.Linear(4096, 4096)
-        self.classifier = nn.Linear(4096, 7)
+        self.classifier = nn.Linear(512, 7)
 
     def forward(self, x):
-        x = self.features(x)
-        x = x.view(x.size(0), -1)
-        x = F.relu(self.fc1(x))
-        x = F.dropout(x, p=0.5, training=self.training)
-        x = F.relu(self.fc2(x))
-        x = F.dropout(x, p=0.5, training=self.training)
-        x = self.classifier(x)
-        return x
+        out = self.features(x)
+        out = out.view(out.size(0), -1)
+        out = F.dropout(out, p=0.5, training=self.training)
+        out = self.classifier(out)
+        return out
 
     def _make_layers(self, cfg):
         layers = []
